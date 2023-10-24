@@ -1,31 +1,42 @@
+import java.util.Arrays;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 class Project {
     public static void main (String[] args) throws Exception{
-        try {
-            ClauseList CL = makeClauseList("input.txt");
-            CL.printClauseList();
+        
+        //make the clause list
+        ClauseList CL = makeClauseListHelper("input.txt");
 
-            //Find the maximum amount of truth assignments given the CL
+        System.out.println("Print all the clauses");
+        CL.printClauseList();
+        System.out.println();
 
-                //Brute-force (recursive)
-                
+        System.out.println("Print all unique literals");
+        CL.printUniqueLiterals();
+        System.out.println();
 
-                //Brute-force (non-recursive)
+        boolean[] Vals = {true, false, false};
+        System.out.println("Finding the number of true clauses given the boolean values (t,f,f) for (x3,x2,x1) respectively");
+        System.out.println(CL.getNumberTrueClauses(Vals)); 
+        System.out.println();
 
-                    //find the max value for the
+        System.out.println("Brute Force Recursion gives us a maximum number of True clauses with");
+        System.out.println(bruteForceRecursiveHelper(CL));
+        System.out.println();
 
-                //Alternative Ideas:
-                /*
-                    Scan for equivalent Clauses
-                    Scan for contradictory Clauses
-                */
-        } catch (Exception e) {
-            System.out.println("Something went wrong with reading the file.");
-            System.out.println(e);
-        }
+        System.out.println("Brute Force Iteration gives us a maximum number of True clauses with");
+        System.out.println("---");
+        System.out.println();
+
+        System.out.println("Alternative Ideas and Optimizations give us a maximum number of True clauses with");
+        System.out.println("---");
+        System.out.println();
+        //Alternative Ideas:
+            /*
+                Scan for equivalent Clauses
+            */
     }
 
     
@@ -36,6 +47,20 @@ class Project {
         Literal l1 = new Literal(Integer.parseInt(line[0]));
         Literal l2 = new Literal(Integer.parseInt(line[1]));
         return new Clause(l1, l2);
+    }
+
+    //Helper function for `makeClauseList`
+    //wraps in try-catch
+    public static ClauseList makeClauseListHelper (String filename) {
+        try {
+            ClauseList CL = makeClauseList(filename);
+            return CL;
+        } catch (Exception e) {
+            System.out.println("Something went wrong reading the file.");
+            System.out.println(e);
+            ClauseList EmptyCL = new ClauseList();
+            return EmptyCL;
+        } 
     }
 
     //Input: a string containing the path to a file
@@ -51,5 +76,48 @@ class Project {
         sc.close();
         
         return CL;
+    }
+
+    //Helper function for bruteForceRecursive
+    //Input: a ClauseList
+    //Output: an int representing the maximum # of true clauses possible
+    public static int bruteForceRecursiveHelper (ClauseList CL) {
+        if (CL.getLength() <= 0) {
+            return -1;
+        } else {
+            String[] uniqueLit = CL.getUniqueLiterals();
+            boolean[] boolArr = new boolean[uniqueLit.length];
+            return bruteForceRecursive(CL, uniqueLit, boolArr, 0, -1);
+        }
+    }
+
+
+    //Input: a ClauseList, String[] of Unique Literals from the CL, boolean[] boolArr which holds the boolean values that will be used, currBoolInd indicating the index of the current bool to modify, and currMax 
+    //Output: an integer representing the max number of true clauses possible from the given CL
+    public static int bruteForceRecursive (ClauseList CL, String[] uniqueLit, boolean[] boolArr, int currBoolInd, int currMax) {
+        if (uniqueLit.length != 1) {
+            //add a boolean value to the boolList
+
+            //try true
+            boolArr[currBoolInd] = true;
+            int newMax = bruteForceRecursive(CL, Arrays.copyOfRange(uniqueLit, 1, uniqueLit.length), boolArr, currBoolInd + 1, currMax);
+            currMax = Math.max(newMax, currMax);
+
+            //try false
+            boolArr[currBoolInd] = false;
+            newMax = bruteForceRecursive(CL, Arrays.copyOfRange(uniqueLit, 1, uniqueLit.length), boolArr, currBoolInd + 1, currMax);
+            currMax = Math.max(newMax, currMax);
+        } else {
+            //only 1 elt left. Assign true then evaluate the CL. Do the same for false.
+            boolArr[currBoolInd] = true;
+            int numIfTrue = CL.getNumberTrueClauses(boolArr);
+
+            boolArr[currBoolInd] = false;
+            int numIfFalse = CL.getNumberTrueClauses(boolArr);
+
+            //currMax becomes the max of the 3 values
+            currMax = Math.max(Math.max(currMax, numIfTrue), numIfFalse);
+        }
+        return currMax;
     }
 }
