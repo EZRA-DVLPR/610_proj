@@ -34,15 +34,7 @@ class Project {
         System.out.println("---");
         System.out.println();
 
-        System.out.println("True Clause equivalence Tests");
-        System.out.println(Clause.equivClause(CL.getClause(0), CL.getClause(0)));
-        System.out.println(Clause.equivClause(CL.getClause(0), new Clause(new Literal(2), new Literal(3))));
-        System.out.println();
-
-        System.out.println("False Clause equivalence Tests");
-        System.out.println(Clause.equivClause(CL.getClause(0), CL.getClause(1)));
-        System.out.println(Clause.equivClause(CL.getClause(0), new Clause(new Literal(-2), new Literal(-3))));
-        System.out.println();
+        testEquivalences(CL);
         //Alternative Ideas:
             /*
                 Scan for equivalent Clauses
@@ -170,5 +162,17 @@ class Project {
             currMax = Math.max(Math.max(currMax, numIfTrue), numIfFalse);
         }
         return currMax;
+    }
+
+    public static void testEquivalences (ClauseList CL) {
+        System.out.println("True Clause equivalence Tests");
+        System.out.println(Clause.equivClause(CL.getClause(0), CL.getClause(0)));
+        System.out.println(Clause.equivClause(CL.getClause(0), new Clause(new Literal(2), new Literal(3))));
+        System.out.println();
+
+        System.out.println("False Clause equivalence Tests");
+        System.out.println(Clause.equivClause(CL.getClause(0), CL.getClause(1)));
+        System.out.println(Clause.equivClause(CL.getClause(0), new Clause(new Literal(-2), new Literal(-3))));
+        System.out.println();
     }
 }
