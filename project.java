@@ -27,11 +27,21 @@ class Project {
         System.out.println();
 
         System.out.println("Brute Force Iteration gives us a maximum number of True clauses with");
-        System.out.println("---");
+        System.out.println(bruteForceIterative(CL));
         System.out.println();
 
         System.out.println("Alternative Ideas and Optimizations give us a maximum number of True clauses with");
         System.out.println("---");
+        System.out.println();
+
+        System.out.println("True Clause equivalence Tests");
+        System.out.println(Clause.equivClause(CL.getClause(0), CL.getClause(0)));
+        System.out.println(Clause.equivClause(CL.getClause(0), new Clause(new Literal(2), new Literal(3))));
+        System.out.println();
+
+        System.out.println("False Clause equivalence Tests");
+        System.out.println(Clause.equivClause(CL.getClause(0), CL.getClause(1)));
+        System.out.println(Clause.equivClause(CL.getClause(0), new Clause(new Literal(-2), new Literal(-3))));
         System.out.println();
         //Alternative Ideas:
             /*
@@ -76,6 +86,47 @@ class Project {
         sc.close();
         
         return CL;
+    }
+
+    //Input: ClauseList CL to brute Force Iteratively find the max number of possible true clauses
+    //Output: An int indicating the max number of possible true clauses
+    public static int bruteForceIterative (ClauseList CL) {
+
+        int max = -1;
+        String[] uniqueLit = CL.getUniqueLiterals();
+        boolean[] boolArr = new boolean[uniqueLit.length];
+
+        //# of bits needed to represent total amount of possibilites for bools
+        int numBits = uniqueLit.length;
+        
+        //calculate the binary representation for all possible T/F values given the # of literals
+        //then use the binary representation to populate BoolArr
+        //0 - False ; 1 - True
+        for (int currNum = 0; currNum < Math.pow(2, numBits); currNum++) {
+            String binary = Integer.toBinaryString(currNum);
+            
+            //Pad with leading zeros
+            //Note that by printing `binary` we will see what values the variables must have to be true/false
+            //      for a particular step (including the maximum)
+            while (binary.length() < numBits) {
+                binary = "0" + binary;
+            }
+
+            //populate boolArr
+            for (int i = 0; i < binary.length(); i++) {
+                char c = binary.charAt(i);
+                if (c == '0') {
+                    boolArr[i] = false;
+                } else {
+                    boolArr[i] = true;
+                }
+            }
+
+            //boolArr is populated, so we evaluate it and update max
+            max = Math.max(max, CL.getNumberTrueClauses(boolArr));
+        }
+
+        return max;
     }
 
     //Helper function for bruteForceRecursive

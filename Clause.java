@@ -17,43 +17,19 @@ public class Clause {
 
     //Input: Clauses C1 and C2
     //Output: A boolean true if C1 and C2 are logically Equivalent. False otherwise.
-    //eg. (X1 || X2) === (X2 || X1) ==> True. All others are false.
     public static boolean equivClause (Clause C1, Clause C2) {
-        //C1 = (X1 || X2), C2 = (X2 || X1)
-        //C1 = (X1 || X2), C2 = (X1 || X2)
 
-        
-
-        //compare C1-LHS to C2-LHS
-        if (Literal.sameLiteral(C1.getLHS(), C2.getLHS())) {
-            //compare C1-RHS to C2-RHS
-            if (Literal.sameLiteral(C1.getRHS(), C2.getRHS())) {
-                return true;
-            }
-        } else if (Literal.sameLiteral(C1.getLHS(), C2.getRHS())) {
-
-        
-        //compare C1-LHS to C2-RHS
-
-            //compare C1-RHS to C2-LHS
-            
-
+        //C1-LHS === C2-LHS and C1-RHS === C2-RHS
+        if ((Literal.sameLiteral(C1.getLHS(), C2.getLHS())) && (Literal.sameLiteral(C1.getRHS(), C2.getRHS()))) {
+            return true;
         }
-        //OR
 
-        //compare C1-RHS to C2-LHS
+        //C1-LHS === C2-RHS and C1-RHS === C2-LHS
+        else if ((Literal.sameLiteral(C1.getLHS(), C2.getRHS())) && (Literal.sameLiteral(C1.getRHS(), C2.getLHS()))) {
+            return true;
+        }
 
-            //compare C1-LHS to C2-RHS
-
-        //compare C1-RHS to C2-RHS
-    
-            //compare C1-LHS to C2-LHS
-
-
-        
-
-
-        return true;
+        return false;
     }
 
     //L1Val is the value of the LHS, L2Val is the value of the RHS
