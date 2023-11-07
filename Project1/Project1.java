@@ -14,11 +14,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-class Project0 {
+class Project1 {
+    int maxTrue;
+    boolean[] boolVals;
+
     public static void main (String[] args) throws Exception{
         
         //make the clause list
-        ClauseList CL = makeClauseListHelper("input.txt");
+        ClauseList CL = makeClauseList("input.txt");
 
         System.out.println("Print all the clauses");
         CL.printClauseList();
@@ -52,20 +55,11 @@ class Project0 {
             */
     }
 
-    //Input: string of the form "INT [WHITESPACE] INT"
-    //Output: a clause made from the given input, making Literals from the `INT`'s
-    public static Clause getClause (String fileLine) {
-        String[] line =  fileLine.split("\\s+");
-        Literal l1 = new Literal(Integer.parseInt(line[0]));
-        Literal l2 = new Literal(Integer.parseInt(line[1]));
-        return new Clause(l1, l2);
-    }
-
     //Helper function for `makeClauseList`
     //wraps in try-catch
-    public static ClauseList makeClauseListHelper (String filename) {
+    public static ClauseList makeClauseList (String filename) {
         try {
-            ClauseList CL = makeClauseList(filename);
+            ClauseList CL = clauseListGenerator(filename);
             return CL;
         } catch (Exception e) {
             System.out.println("Something went wrong reading the file.");
@@ -77,10 +71,12 @@ class Project0 {
 
     //Input: a string containing the path to a file
     //Output: a ClauseList made from the file
-    public static ClauseList makeClauseList (String filename) throws FileNotFoundException {
+    public static ClauseList clauseListGenerator (String filename) throws FileNotFoundException {
         File file = new File(filename);
         Scanner sc = new Scanner(file);
         ClauseList CL = new ClauseList();
+
+        // NEED TO HANDLE 1ST LINE INPUT DIFFERENTLY
 
         while (sc.hasNextLine()) {
             CL.addClause(getClause(sc.nextLine()));
@@ -88,6 +84,15 @@ class Project0 {
         sc.close();
         
         return CL;
+    }
+
+    //Input: string of the form "INT [WHITESPACE] INT"
+    //Output: a clause made from the given input, making Literals from the `INT`'s
+    public static Clause getClause (String fileLine) {
+        String[] line =  fileLine.split("\\s+");
+        Literal l1 = new Literal(Integer.parseInt(line[0]));
+        Literal l2 = new Literal(Integer.parseInt(line[1]));
+        return new Clause(l1, l2);
     }
 
     //Input: ClauseList CL to brute Force Iteratively find the max number of possible true clauses
