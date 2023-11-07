@@ -21,18 +21,18 @@ class Project1 {
     public static void main (String[] args) throws Exception{
         
         //make the clause list
-        ClauseList CL = makeClauseList("input.txt");
+        ClauseList CL = makeClauseList("Project1/input.txt");
 
-        System.out.println("Print all the clauses");
+        System.out.println("Print all the clauses:");
         CL.printClauseList();
         System.out.println();
 
-        System.out.println("Print all unique literals");
+        System.out.println("Print all unique literals:");
         CL.printUniqueLiterals();
         System.out.println();
 
         boolean[] Vals = {true, false, false};
-        System.out.println("Finding the number of true clauses given the boolean values (t,f,f) for (x3,x2,x1) respectively");
+        System.out.println("Finding the number of true clauses given the boolean values (t,f,f) for (x2,x3,x4) respectively");
         System.out.println(CL.getNumberTrueClauses(Vals)); 
         System.out.println();
 
@@ -55,8 +55,10 @@ class Project1 {
             */
     }
 
-    //Helper function for `makeClauseList`
-    //wraps in try-catch
+    //Driver function for `makeClauseList`
+    //wraps in try-catch to catch exceptions
+    //Input: a string containing the path to a file
+    //Output: a ClauseList made from the file
     public static ClauseList makeClauseList (String filename) {
         try {
             ClauseList CL = clauseListGenerator(filename);
@@ -70,19 +72,22 @@ class Project1 {
     }
 
     //Input: a string containing the path to a file
-    //Output: a ClauseList made from the file
+    //Output: a ClauseList made from the file or throws an exception
     public static ClauseList clauseListGenerator (String filename) throws FileNotFoundException {
         File file = new File(filename);
         Scanner sc = new Scanner(file);
         ClauseList CL = new ClauseList();
 
-        // NEED TO HANDLE 1ST LINE INPUT DIFFERENTLY
+        //determine the amount of lines to read in from the first line read
+        String numClauses = sc.nextLine();
 
-        while (sc.hasNextLine()) {
+        //create the ClauseList by reading each of the lines after the first
+        for (int i = 0; i < Integer.parseInt(numClauses); i++) {
             CL.addClause(getClause(sc.nextLine()));
         }
-        sc.close();
         
+        //close scanner and return
+        sc.close();
         return CL;
     }
 

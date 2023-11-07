@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class ClauseList {
     private ArrayList<Clause> CL;
@@ -13,12 +14,16 @@ public class ClauseList {
         this.CL.add(C);
         
         if (!(this.uniqueLit.contains(C.getLHS().getNameAsString()))) {
-            uniqueLit.add(C.getLHS().getNameAsString());
+            this.uniqueLit.add(C.getLHS().getNameAsString());
         }
 
         if (!(this.uniqueLit.contains(C.getRHS().getNameAsString()))) {
-            uniqueLit.add(C.getRHS().getNameAsString());
+            this.uniqueLit.add(C.getRHS().getNameAsString());
         }
+
+        //sort them in natural order ("X2" < "X3", etc.)
+        this.uniqueLit.sort(Comparator.naturalOrder());
+
         return C;
     }
 
@@ -43,11 +48,18 @@ public class ClauseList {
     //Vals is in the same order given when calling getUniqueLiterals or getClauseList
     public int getNumberTrueClauses (boolean[] Vals) {
         int numTrue = 0;
+
         for (int i = 0; i < this.getLength(); i++) {
-            //this.CL.get(i).getLHS().getNameAsInt() - 1
-            //is the location of the boolean value to evaluate the LHS of the current (i) clause
-            boolean LHSBool = Vals[this.CL.get(i).getLHS().getNameAsInt() - 1];
-            boolean RHSBool = Vals[this.CL.get(i).getRHS().getNameAsInt() - 1];
+            //this.CL.get(i)
+            //gives the current clause
+            
+            //this.CL.get(i).getLHS().getNameAsString()
+            //prints the LHS of the current Clause as string
+
+            //find the index of the above string within the list of unique Literals
+
+            boolean LHSBool = Vals[this.uniqueLit.indexOf(this.CL.get(i).getLHS().getNameAsString())];
+            boolean RHSBool = Vals[this.uniqueLit.indexOf(this.CL.get(i).getRHS().getNameAsString())];
 
             if (this.CL.get(i).evaluates(LHSBool, RHSBool)) {
                 numTrue++;
