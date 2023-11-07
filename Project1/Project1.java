@@ -1,13 +1,13 @@
 // Isaiah Martinez
 // Project 1
-// 1 line description of project
-
-
-
 // Max 2-SAT Brute Force
-// Ensure inputs and outputs are being read/written properly
 
 /**************************************************************************************************************/
+
+// print out outputs in desired format
+// run command with `javac Project1.java`
+// run command `java Project1`
+
 
 import java.util.Arrays;
 import java.io.File;
@@ -22,7 +22,7 @@ class Project1 {
     public static void main (String[] args) throws Exception{
         
         //make the clause list
-        ClauseList CL = makeClauseList("Project1/input.txt");
+        ClauseList CL = makeClauseList("input.txt");
 
         System.out.println("Brute Force Recursion gives us a maximum number of True clauses with");
         System.out.println(bruteForceRecursive(CL));
@@ -34,10 +34,11 @@ class Project1 {
 
         System.out.println(maxTrue);
 
-        for (int i = 0; i < boolVals.length; i++) {
-            System.out.println(boolVals[i]);
+        if (!(boolVals == null)) {
+            for (int i = 0; i < boolVals.length; i++) {
+                System.out.println(boolVals[i]);
+            }
         }
-
 
         // System.out.println("Alternative Ideas and Optimizations give us a maximum number of True clauses with");
         // System.out.println("---");
@@ -102,6 +103,10 @@ class Project1 {
     //Input: ClauseList CL to brute Force Iteratively find the max number of possible true clauses
     //Output: An int indicating the max number of possible true clauses
     public static int bruteForceIterative (ClauseList CL) {
+
+        if (CL.getLength() <= 0) {
+            return -1;
+        }
 
         int max = -1;
         String[] uniqueLit = CL.getUniqueLiterals();
