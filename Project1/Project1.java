@@ -4,7 +4,10 @@
 
 /**************************************************************************************************************/
 
-// print out outputs in desired format
+// print out outputs in desired format:
+//numTrue
+//boolVals as singleCharacter for True/False and as a single string (eg. True, True => TT)
+
 // run command with `javac Project1.java`
 // run command `java Project1`
 
