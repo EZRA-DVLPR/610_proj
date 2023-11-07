@@ -15,40 +15,38 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 class Project1 {
-    int maxTrue;
-    boolean[] boolVals;
+    //Note that these two values get set only after bruteForceIterative done
+    static int maxTrue;
+    static boolean[] boolVals;
 
     public static void main (String[] args) throws Exception{
         
         //make the clause list
         ClauseList CL = makeClauseList("Project1/input.txt");
 
-        System.out.println("Print all the clauses:");
-        CL.printClauseList();
-        System.out.println();
-
-        System.out.println("Print all unique literals:");
-        CL.printUniqueLiterals();
-        System.out.println();
-
-        boolean[] Vals = {true, false, false};
-        System.out.println("Finding the number of true clauses given the boolean values (t,f,f) for (x2,x3,x4) respectively");
-        System.out.println(CL.getNumberTrueClauses(Vals)); 
-        System.out.println();
-
         System.out.println("Brute Force Recursion gives us a maximum number of True clauses with");
-        System.out.println(bruteForceRecursiveHelper(CL));
+        System.out.println(bruteForceRecursive(CL));
         System.out.println();
 
         System.out.println("Brute Force Iteration gives us a maximum number of True clauses with");
         System.out.println(bruteForceIterative(CL));
         System.out.println();
 
-        System.out.println("Alternative Ideas and Optimizations give us a maximum number of True clauses with");
-        System.out.println("---");
-        System.out.println();
+        System.out.println(maxTrue);
 
-        testEquivalences(CL);
+        for (int i = 0; i < boolVals.length; i++) {
+            System.out.println(boolVals[i]);
+        }
+
+
+        // System.out.println("Alternative Ideas and Optimizations give us a maximum number of True clauses with");
+        // System.out.println("---");
+        // System.out.println();
+        
+        //printAllClauses(CL);
+        //printAllLiterals(CL);
+        //testTrueClauses(CL);
+        //testEquivalences(CL);
         //Alternative Ideas:
             /*
                 Scan for equivalent Clauses
@@ -100,6 +98,7 @@ class Project1 {
         return new Clause(l1, l2);
     }
 
+    //Automatically updates maxTrue and boolVals to their respective values
     //Input: ClauseList CL to brute Force Iteratively find the max number of possible true clauses
     //Output: An int indicating the max number of possible true clauses
     public static int bruteForceIterative (ClauseList CL) {
@@ -138,13 +137,15 @@ class Project1 {
             max = Math.max(max, CL.getNumberTrueClauses(boolArr));
         }
 
+        boolVals = boolArr;
+        maxTrue = max;
         return max;
     }
 
-    //Helper function for bruteForceRecursive
+    //Driver function for bruteForceRecursive
     //Input: a ClauseList
     //Output: an int representing the maximum # of true clauses possible
-    public static int bruteForceRecursiveHelper (ClauseList CL) {
+    public static int bruteForceRecursive (ClauseList CL) {
         if (CL.getLength() <= 0) {
             return -1;
         } else {
@@ -154,7 +155,7 @@ class Project1 {
         }
     }
 
-
+    //Helper Function for bruteForceRecursive
     //Input: a ClauseList, String[] of Unique Literals from the CL, boolean[] boolArr which holds the boolean values that will be used, currBoolInd indicating the index of the current bool to modify, and currMax 
     //Output: an integer representing the max number of true clauses possible from the given CL
     public static int bruteForceRecursive (ClauseList CL, String[] uniqueLit, boolean[] boolArr, int currBoolInd, int currMax) {
@@ -185,14 +186,37 @@ class Project1 {
     }
 
     public static void testEquivalences (ClauseList CL) {
-        System.out.println("True Clause equivalence Tests");
+        System.out.println("True Clause equivalence Tests:");
+        System.out.println("Comparing CL[0] to CL[0]");
         System.out.println(Clause.equivClause(CL.getClause(0), CL.getClause(0)));
-        System.out.println(Clause.equivClause(CL.getClause(0), new Clause(new Literal(2), new Literal(3))));
+        System.out.println("Comparing CL[0] to a new clause (X2 || !X4)");
+        System.out.println(Clause.equivClause(CL.getClause(0), new Clause(new Literal(2), new Literal(-4))));
         System.out.println();
 
-        System.out.println("False Clause equivalence Tests");
+        System.out.println("False Clause equivalence Tests:");
+        System.out.println("Comparing CL[0] to CL[1]");
         System.out.println(Clause.equivClause(CL.getClause(0), CL.getClause(1)));
+        System.out.println("Comparing CL[0] to a new clause (!X2 || !X3)");
         System.out.println(Clause.equivClause(CL.getClause(0), new Clause(new Literal(-2), new Literal(-3))));
+        System.out.println();
+    }
+
+    public static void testTrueClauses (ClauseList CL) {
+        boolean[] Vals = {true, false, false};
+        System.out.println("Finding the number of true clauses given the boolean values (t,f,f) for (x2,x3,x4) respectively");
+        System.out.println(CL.getNumberTrueClauses(Vals)); 
+        System.out.println();
+    }
+
+    public static void printAllClauses (ClauseList CL) {
+        System.out.println("Print all the clauses:");
+        CL.printClauseList();
+        System.out.println();
+    }
+
+    public static void printAllLiterals (ClauseList CL) {
+        System.out.println("Print all unique literals:");
+        CL.printUniqueLiterals();
         System.out.println();
     }
 }
