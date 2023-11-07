@@ -1,9 +1,20 @@
+// Isaiah Martinez
+// Project 1
+// 1 line description of project
+
+
+
+// Max 2-SAT Brute Force
+// Ensure inputs and outputs are being read/written properly
+
+/**************************************************************************************************************/
+
 import java.util.Arrays;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-class Project {
+class Project0 {
     public static void main (String[] args) throws Exception{
         
         //make the clause list
@@ -41,7 +52,6 @@ class Project {
             */
     }
 
-    
     //Input: string of the form "INT [WHITESPACE] INT"
     //Output: a clause made from the given input, making Literals from the `INT`'s
     public static Clause getClause (String fileLine) {
