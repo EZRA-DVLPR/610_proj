@@ -7,8 +7,11 @@ All folders are envisioned to be separate from another, so there may be duplicat
 
 There will be a total of 3 projects for this class, thus the basic structure is:
 * Project1
+[Project 1 Description](#comp-610-project-1-description)
 * Project2
+[Project 2 Description](#comp-610-project-2-description)
 * Project3
+[Project 3 Description](#comp-610-project-3-description)
 
 # COMP 610 Project 1 Description
 
@@ -26,9 +29,9 @@ Construct a Max 2-SAT solver that will:
 ### Additional Notes
 
 See: 
-[Max SAT](https://en.wikipedia.org/wiki/Maximum_satisfiability_problem)
-[2-SAT](https://en.wikipedia.org/wiki/2-satisfiability)
-[Max 2-SAT](https://en.wikipedia.org/wiki/2-satisfiability#Maximum-2-satisfiability)
+* [Max SAT](https://en.wikipedia.org/wiki/Maximum_satisfiability_problem)
+* [2-SAT](https://en.wikipedia.org/wiki/2-satisfiability)
+* [Max 2-SAT](https://en.wikipedia.org/wiki/2-satisfiability#Maximum-2-satisfiability)
 
 ## See input.txt for an example of given input
 
@@ -70,7 +73,7 @@ TTTF
 indicating that there is a maximum possible number of true clauses of 8, as well as the truth value assignments to variables x1, x2, x3, x4 respectively as TTTF
 
 > [!NOTE]
-> x1 through x4 are defined and used in the output. Notice it contains the truth assignments needed to attain the max SAT
+> x1 through x4 are defined and used in the output. Notice it contains the truth assignments needed to attain the max SAT.
 
 
 # COMP 610 Project 2 Description
