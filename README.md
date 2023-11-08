@@ -2,10 +2,11 @@
 
 This repo contains all of the projects assigned in my Comp 610 Class at CSUN Fall 2023. Below are the descriptions of each project.
 The file structure of this repo is as follows:
-1 folder per project
-All folders are envisioned to be separate from another, so there may be duplicate files when looking at the different folders.
+1 java file per project (Titled ProjectX.java for X being the project number).
+*.java files are helper files to be used for the projects.
+*.class are the compiled files
 
-There will be a total of 3 projects for this class, thus the basic structure is:
+There will be a total of 3 projects for this class:
 * Project1 | See: [Project 1 Description](#comp-610-project-1-description)
 * Project2 | See: [Project 2 Description](#comp-610-project-2-description)
 * Project3 | See: [Project 3 Description](#comp-610-project-3-description)
