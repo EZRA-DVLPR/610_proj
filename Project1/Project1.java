@@ -11,7 +11,7 @@
 // run command with `javac Project1.java`
 // run command `java Project1`
 
-
+import java.util.List;
 import java.util.Arrays;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -27,34 +27,24 @@ class Project1 {
         //make the clause list
         ClauseList CL = makeClauseList("input.txt");
 
-        System.out.println("Brute Force Recursion gives us a maximum number of True clauses with");
-        System.out.println(bruteForceRecursive(CL));
-        System.out.println();
-
-        System.out.println("Brute Force Iteration gives us a maximum number of True clauses with");
-        System.out.println(bruteForceIterative(CL));
-        System.out.println();
+        bruteForceIterative(CL);
 
         System.out.println(maxTrue);
 
-        if (!(boolVals == null)) {
-            for (int i = 0; i < boolVals.length; i++) {
-                System.out.println(boolVals[i]);
-            }
-        }
+        printBoolVals(CL);
 
-        // System.out.println("Alternative Ideas and Optimizations give us a maximum number of True clauses with");
-        // System.out.println("---");
+        // System.out.println("Brute Force Recursion gives us a maximum number of True clauses with");
+        // System.out.println(bruteForceRecursive(CL));
+        // System.out.println();
+
+        // System.out.println("Brute Force Iteration gives us a maximum number of True clauses with");
+        // System.out.println(bruteForceIterative(CL));
         // System.out.println();
         
         //printAllClauses(CL);
         //printAllLiterals(CL);
         //testTrueClauses(CL);
         //testEquivalences(CL);
-        //Alternative Ideas:
-            /*
-                Scan for equivalent Clauses
-            */
     }
 
     //Driver function for `makeClauseList`
@@ -141,11 +131,14 @@ class Project1 {
                 }
             }
 
-            //boolArr is populated, so we evaluate it and update max
-            max = Math.max(max, CL.getNumberTrueClauses(boolArr));
+            //update global variable boolVals and update local variable max if calculated max is >= max
+            if (CL.getNumberTrueClauses(boolArr) >= max) {
+                max = CL.getNumberTrueClauses(boolArr);
+                boolVals = boolArr.clone();
+            }
         }
 
-        boolVals = boolArr;
+        //update global variable maxTrue
         maxTrue = max;
         return max;
     }
@@ -226,5 +219,35 @@ class Project1 {
         System.out.println("Print all unique literals:");
         CL.printUniqueLiterals();
         System.out.println();
+    }
+
+    public static void printBoolVals (ClauseList CL) {
+
+        String[] uniqueLits = CL.getUniqueLiterals();
+
+        //used for searching the list of strings
+        List<String> uniqueLiterals = Arrays.asList(uniqueLits);
+
+        if (!(boolVals == null)) {
+            int boolValIndex = 0;
+            for (int i = 1; i <= Integer.parseInt(uniqueLits[uniqueLits.length - 1]) ; i++) {
+                //i represents all possible k's from 1 to max Numbered Literal
+                //if uniqueLiterals containes i as a string, then we print the associated
+                //  boolean value from boolVals
+                if (uniqueLiterals.contains(Integer.toString(i))) {
+                    //Convert True/False to T/F for printing purposes
+                    if (boolVals[boolValIndex]) {
+                        System.out.print("T");
+                    } else {
+                        System.out.print("F");
+                    }
+                    boolValIndex++;
+                    
+                } else {
+                    //else we automatically print T
+                    System.out.print("T");
+                }
+            }
+        }
     }
 }
