@@ -115,7 +115,7 @@ Additionally, we expect to see the truth value assignments to variables x1, x2, 
 
 # COMP 610 Project 2 Description
 
-Max 2-SAT Approximation ($\` \geq \`$ 75% optimal)
+Max 2-SAT Approximation ($\` \ge \`$ 75% optimal)
 
 # COMP 610 Project 3 Description
 
