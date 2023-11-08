@@ -84,7 +84,7 @@ See:
 
 Looking at [Input.txt](#inputtxt):
 
-We should expect an output of yields an output of:
+We should expect an output of:
 ```
 4
 TTTT
@@ -97,11 +97,11 @@ Additionally, we expect to see the truth value assignments to variables x1, x2, 
 > x1 does not appear in the input, yet it's output was still yielded as T.
 > We are expected to print the truth assignments of all variables starting from 1 through the max variable number.
 
-## See input2.txt for another example of given input
+---
 
-[Input2.txt](#input2txt)
+Looking at [Input2.txt](#input2txt):
 
-which yields an output of:
+We should expect an output of:
 ```
 8
 TTTF
