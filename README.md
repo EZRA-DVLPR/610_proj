@@ -78,8 +78,13 @@ indicating that there is a maximum possible number of true clauses of 8, as well
 
 # COMP 610 Project 2 Description
 
-...
+Max 2-SAT Approximation (>= 75% optimal)
 
 # COMP 610 Project 3 Description
 
-...
+Max 2-SAT Local Search
+
+### Additional Notes
+
+See: 
+* [Local Search](https://en.wikipedia.org/wiki/Local_search_(optimization))
