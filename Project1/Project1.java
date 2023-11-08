@@ -4,13 +4,6 @@
 
 /**************************************************************************************************************/
 
-// print out outputs in desired format:
-//numTrue
-//boolVals as singleCharacter for True/False and as a single string (eg. True, True => TT)
-
-// run command with `javac Project1.java`
-// run command `java Project1`
-
 import java.util.List;
 import java.util.Arrays;
 import java.io.File;
@@ -157,7 +150,8 @@ class Project1 {
     }
 
     //Helper Function for bruteForceRecursive
-    //Input: a ClauseList, String[] of Unique Literals from the CL, boolean[] boolArr which holds the boolean values that will be used, currBoolInd indicating the index of the current bool to modify, and currMax 
+    //Input: a ClauseList, String[] of Unique Literals from the CL, boolean[] boolArr which holds the boolean
+    //        values that will be used, currBoolInd indicating the index of the current bool to modify, and currMax 
     //Output: an integer representing the max number of true clauses possible from the given CL
     public static int bruteForceRecursive (ClauseList CL, String[] uniqueLit, boolean[] boolArr, int currBoolInd, int currMax) {
         if (uniqueLit.length != 1) {
@@ -186,6 +180,9 @@ class Project1 {
         return currMax;
     }
 
+    //Input: a ClauseList
+    //Output: N/A
+    //Prints Out the evaluation for Pre-determined Tests. Evaluation should be: True, True, False, False.
     public static void testEquivalences (ClauseList CL) {
         System.out.println("True Clause equivalence Tests:");
         System.out.println("Comparing CL[0] to CL[0]");
@@ -202,6 +199,8 @@ class Project1 {
         System.out.println();
     }
 
+    //Input: a ClauseList
+    //Output: an int representing the maximum # of true clauses possible
     public static void testTrueClauses (ClauseList CL) {
         boolean[] Vals = {true, false, false};
         System.out.println("Finding the number of true clauses given the boolean values (t,f,f) for (x2,x3,x4) respectively");
@@ -209,18 +208,27 @@ class Project1 {
         System.out.println();
     }
 
+    //Input: a ClauseList
+    //Output: N/A
+    //Prints all clauses within given ClauseList
     public static void printAllClauses (ClauseList CL) {
         System.out.println("Print all the clauses:");
         CL.printClauseList();
         System.out.println();
     }
 
+    //Input: a ClauseList
+    //Output: N/A
+    //Prints all Literals within given ClauseList
     public static void printAllLiterals (ClauseList CL) {
         System.out.println("Print all unique literals:");
         CL.printUniqueLiterals();
         System.out.println();
     }
 
+    //Input: a ClauseList
+    //Output: N/A
+    //Prints truth assignments output desired for project submission
     public static void printBoolVals (ClauseList CL) {
 
         String[] uniqueLits = CL.getUniqueLiterals();

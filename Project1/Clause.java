@@ -1,4 +1,8 @@
-public class Clause {
+// Isaiah Martinez
+// Project 1
+// Clause Class
+
+/**************************************************************************************************************/public class Clause {
     private Literal LHS;
     private Literal RHS;
 

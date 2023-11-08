@@ -1,3 +1,8 @@
+// Isaiah Martinez
+// Project 1
+// Literal Class
+
+/**************************************************************************************************************/
 import java.lang.Math;
 
 public class Literal {

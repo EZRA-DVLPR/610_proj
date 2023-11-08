@@ -1,3 +1,8 @@
+// Isaiah Martinez
+// Project 1
+// ClauseList Class
+
+/**************************************************************************************************************/
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -45,7 +50,9 @@ public class ClauseList {
         return this.CL.size();
     }
 
-    //Vals is in the same order given when calling getUniqueLiterals or getClauseList
+    //Input: a boolean[] Vals
+    //      Note: Vals is in the same order given when calling getUniqueLiterals or getClauseList
+    //Output: an int representing the Number of True Clauses for this CL given Vals
     public int getNumberTrueClauses (boolean[] Vals) {
         int numTrue = 0;
 
@@ -56,8 +63,7 @@ public class ClauseList {
             //this.CL.get(i).getLHS().getNameAsString()
             //prints the LHS of the current Clause as string
 
-            //find the index of the above string within the list of unique Literals
-
+            //find the index of the above string within the list of unique Literals for the LHS and RHS
             boolean LHSBool = Vals[this.uniqueLit.indexOf(this.CL.get(i).getLHS().getNameAsString())];
             boolean RHSBool = Vals[this.uniqueLit.indexOf(this.CL.get(i).getRHS().getNameAsString())];
 
