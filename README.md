@@ -6,11 +6,11 @@ The file structure of this repo is as follows:
 All folders are envisioned to be separate from another, so there may be duplicate files when looking at the different folders.
 
 There will be a total of 3 projects for this class, thus the basic structure is:
-* Project1 See:
+* Project1 | See:
 [Project 1 Description](#comp-610-project-1-description)
-* Project2 See:
+* Project2 | See:
 [Project 2 Description](#comp-610-project-2-description)
-* Project3 See:
+* Project3 | See:
 [Project 3 Description](#comp-610-project-3-description)
 
 # COMP 610 Project 1 Description
