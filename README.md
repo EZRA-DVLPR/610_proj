@@ -70,7 +70,7 @@ Construct a Max 2-SAT solver that will:
 * Otherwise the value represents the literal of that number (eg. 2 indicates x2).
 * Interpret the clauses given on each line (eg. -1 2 indicates !x1 || x2).
 * Find the maximum amount of truthful clauses for the given list of clauses after assigning boolean values to the variables.
-* Truth assignments are from the range 1 $\` \leq \`$ i $\` \leq \`$ k. Where k is the largest integer variable mentioned (eg. for input.txt k = 4). 
+* Truth assignments are from the range 1 $ \leq $ i $ \leq $ k. Where k is the largest integer variable mentioned (eg. for input.txt k = 4). 
 * Output an integer defining the maximum amount of truthful clauses possible, as well as the truth assignments that achieve this amount.(eg. 4 TTTT).
 
 ### Additional Notes
@@ -115,7 +115,7 @@ Additionally, we expect to see the truth value assignments to variables x1, x2, 
 
 # COMP 610 Project 2 Description
 
-Max 2-SAT Approximation ( $\` \ge \`$ 75% optimal )
+Max 2-SAT Approximation of $ \geq $ 75% optimal
 
 # COMP 610 Project 3 Description
 
