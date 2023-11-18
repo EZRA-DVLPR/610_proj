@@ -104,6 +104,9 @@ class Project2 {
             System.out.println("Literal: " + key + ", Occurrences: " + literalCounts.get(key));
         }
 
+        System.out.println(literalCounts.get("!X3"));
+        System.out.println((literalCounts.get("!X3")) == (null));
+
         CL.printClauseList();
 
         return 0;
