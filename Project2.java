@@ -106,8 +106,6 @@ class Project2 {
 
         CL.printClauseList();
 
-        System.out.println(CL.getNumberOccurences("X19"));
-
         return 0;
     }
 

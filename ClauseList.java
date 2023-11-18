@@ -64,8 +64,9 @@ public class ClauseList {
             //prints the LHS of the current Clause as string
 
             //find the index of the above string within the list of unique Literals for the LHS and RHS
-            boolean LHSBool = Vals[this.uniqueLit.indexOf(this.CL.get(i).getLHS().getNameAsString())];
-            boolean RHSBool = Vals[this.uniqueLit.indexOf(this.CL.get(i).getRHS().getNameAsString())];
+            
+            boolean LHSBool = Vals[this.uniqueLit.indexOf(Integer.toString(this.CL.get(i).getLHS().getNameAsInt()))];
+            boolean RHSBool = Vals[this.uniqueLit.indexOf(Integer.toString(this.CL.get(i).getRHS().getNameAsInt()))];
 
             if (this.CL.get(i).evaluates(LHSBool, RHSBool)) {
                 numTrue++;
