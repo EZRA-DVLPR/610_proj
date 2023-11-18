@@ -35,6 +35,8 @@ class Project2 {
 
         System.out.println("\n\n\n\n");
         */
+
+        /* 
         approximate(CL);
 
         System.out.println("\n\n");
@@ -48,7 +50,17 @@ class Project2 {
         }
         System.out.println("\n");
 
+        */
+
+
+        CL.printAllLiterals();
+        System.out.println();
+
+        CL.printUniqueLiterals();
+        System.out.println();
         
+        CL.printClauseList();
+        System.out.println();
         
 
     }

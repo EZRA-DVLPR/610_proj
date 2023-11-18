@@ -32,18 +32,16 @@ public class Literal {
 
     public String getLitAsString() {
         if (this.isNotNegated) {
-            return Integer.toString(this.name);
-        } else {
-            return "!" + Integer.toString(this.name);
+            return "X" + Integer.toString(this.name);
         }
+        return "!X" + Integer.toString(this.name);
     }
 
     public int getLitAsInt() {
         if (this.isNotNegated) {
             return this.name;
-        } else {
-            return -1 * this.name;
         }
+        return -1 * this.name;
     }
 
     //Input: Literals L1, L2
