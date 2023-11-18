@@ -36,9 +36,9 @@ class Project2 {
         System.out.println("\n\n\n\n");
         */
 
-        /* 
+        
         approximate(CL);
-
+        /*
         System.out.println("\n\n");
 
         System.out.println(approxTrue);
@@ -52,16 +52,7 @@ class Project2 {
 
         */
 
-
-        CL.printAllLiterals();
-        System.out.println();
-
-        CL.printUniqueLiterals();
-        System.out.println();
-        
-        CL.printClauseList();
-        System.out.println();
-        
+        ///////////////////////////////////////////////////////////////////
 
     }
 
@@ -116,69 +107,101 @@ class Project2 {
     public static int approximate (ClauseList CL) {
 
         Dictionary<String, Integer> literalCounts = new Hashtable<>();
-        ArrayList<String> lits = new ArrayList<>();
+        String[] allLit = CL.getAllLiterals();
         String[] uniqueLit = CL.getUniqueLiterals();
 
         // for each unique Literal, add its number of occurrences to the hashtable
         // also add its number of negated occurrences
         
         //populate literalCounts
-        for (String lit : uniqueLit) {
+        for (String lit : allLit) {
             literalCounts.put(lit, CL.getNumberOccurences(lit));
         }
 
-        //populate lits
-        for (String lit : uniqueLit) {
-            if ((lit.contains("!")) && (!(lits.contains(lit.substring(1, lit.length()))))) {
-                lits.add(lit.substring(1, lit.length()));
-            } else if (!(lits.contains(lit))) {
-                lits.add(lit);
-            }
-        }
-
-        // compare the count for it being negated and not negated
-        for (String lit : lits) {
-            if ((null == literalCounts.get(lit)) || (null == literalCounts.get("!" + lit))) {
-                //we don't adjust the dictionary
-            } else {
-                //compare if lit > !lit
-                boolean compare = literalCounts.get(lit) >= literalCounts.get("!" + lit);
-                
-                //delete the smaller of the two
-                if (compare) {
-                    //Count of lit > !lit
-                    literalCounts.remove("!" + lit);
-                } else {
-                    //Count of !lit > lit
-                    literalCounts.remove(lit);
-                }
-            }
-        }
-
-        boolean[] boolArr = new boolean[literalCounts.size()];
-
-        int count = 0;
         Enumeration<String> k = literalCounts.keys();
         while (k.hasMoreElements()) {
             String key = k.nextElement();
             System.out.println("Literal: " + key + ", Occurrences: " + literalCounts.get(key));
-            if (key.contains("!")) {
-                boolArr[count] = false;
+        }
+
+        // compare if the count for 
+
+        for (int i = 0; i < uniqueLit.length; i++) {
+            
+            //find what # occurrences uniqueLit[i] has notNegated vs Negated
+
+
+            if ((null == literalCounts.get("X" + uniqueLit[i])) || (null == literalCounts.get("!X" + uniqueLit[i]))){
+                //we will use that # Occurrences
             } else {
-                boolArr[count] = true;
+                //both notNegated and Negated exist
+
+                boolean compare = literalCounts.get("X" + uniqueLit[i]) >= literalCounts.get("!X" + uniqueLit[i]);
+
+                if (compare) {
+                    // notNegated > Negated
+                    literalCounts.remove("!X" + uniqueLit);
+                } else {
+                    // notNegated < Negated
+                    literalCounts.remove("X" + uniqueLit);
+                }
             }
-            count++;
+
         }
 
-        boolValsApprox = boolArr.clone();
+        System.out.println();
 
-        for (boolean b : boolValsApprox) {
-            System.out.println(b);
+        k = literalCounts.keys();
+        while (k.hasMoreElements()) {
+            String key = k.nextElement();
+            System.out.println("Literal: " + key + ", Occurrences: " + literalCounts.get(key));
         }
 
-        approxTrue = CL.getNumberTrueClauses(boolValsApprox);
+        // // compare the count for it being negated and not negated
+        // for (String lit : lits) {
+        //     if ((null == literalCounts.get(lit)) || (null == literalCounts.get("!" + lit))) {
+        //         //we don't adjust the dictionary
+        //     } else {
+        //         //compare if lit > !lit
+        //         boolean compare = literalCounts.get(lit) >= literalCounts.get("!" + lit);
+                
+        //         //delete the smaller of the two
+        //         if (compare) {
+        //             //Count of lit > !lit
+        //             literalCounts.remove("!" + lit);
+        //         } else {
+        //             //Count of !lit > lit
+        //             literalCounts.remove(lit);
+        //         }
+        //     }
+        // }
+        
+        // boolean[] boolArr = new boolean[literalCounts.size()];
 
-        return approxTrue;
+        // int count = 0;
+
+
+        // k = literalCounts.keys();
+        // while (k.hasMoreElements()) {
+        //     String key = k.nextElement();
+        //     System.out.println("Literal: " + key + ", Occurrences: " + literalCounts.get(key));
+        //     if (key.contains("!")) {
+        //         boolArr[count] = false;
+        //     } else {
+        //         boolArr[count] = true;
+        //     }
+        //     count++;
+        // }
+
+        // boolValsApprox = boolArr.clone();
+
+        // for (boolean b : boolValsApprox) {
+        //     System.out.println(b);
+        // }
+
+        // approxTrue = CL.getNumberTrueClauses(boolValsApprox);
+
+        return 0;
     }
 
 

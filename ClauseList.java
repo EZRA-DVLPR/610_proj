@@ -85,7 +85,7 @@ public class ClauseList {
             //gives the current clause
             
             //this.CL.get(i).getLHS().getNameAsString()
-            //prints the LHS of the current Clause as string
+            //prints the name of the LHS of the current Clause as string 
 
             //find the index of the above string within the list of unique Literals for the LHS and RHS
             
@@ -117,7 +117,11 @@ public class ClauseList {
             String LHS = this.CL.get(i).getLHS().getLitAsString();
             String RHS = this.CL.get(i).getRHS().getLitAsString();
 
-            if ((LHS.compareTo(LitName) == 0) || (RHS.compareTo(LitName) == 0)) {
+            if (LHS.compareTo(LitName) == 0) {
+                count++;
+            }
+
+            if (RHS.compareTo(LitName) == 0) {
                 count++;
             }
         }
