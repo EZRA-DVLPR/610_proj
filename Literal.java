@@ -23,7 +23,11 @@ public class Literal {
     }
 
     public String getNameAsString () {
-        return Integer.toString(this.name);
+        if (this.isNotNegated) {
+            return Integer.toString(this.name);
+        } else {
+            return "!" + Integer.toString(this.name);
+        }
     }
 
     public int getNameAsInt () {

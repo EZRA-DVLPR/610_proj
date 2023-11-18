@@ -78,6 +78,29 @@ public class ClauseList {
         return numTrue;
     }
 
+    //Input: String representing the string representation of a literal
+    //Output: int result of the amount of occurences of such a literal
+    public int getNumberOccurences (String LitName) {
+        int count = 0;
+
+        // length of CL (self)
+        for (int i = 0; i < this.getLength(); i++) {
+            //this.CL.get(i)
+            //gives the current clause
+            
+            //this.CL.get(i).getLHS().getNameAsString()
+            //prints the LHS of the current Clause as string
+            String LHS = this.CL.get(i).getLHS().getNameAsString();
+            String RHS = this.CL.get(i).getRHS().getNameAsString();
+
+            if ((LHS.compareTo(LitName) == 0) || (RHS.compareTo(LitName) == 0)) {
+                count++;
+            }
+        }
+        
+        return count;
+    }
+
     public void printUniqueLiterals () {
         for (int i = 0; i < this.uniqueLit.size(); i++) {
             System.out.println("X" + this.uniqueLit.get(i));

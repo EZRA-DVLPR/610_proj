@@ -4,6 +4,9 @@
 
 /**************************************************************************************************************/
 
+import java.util.Dictionary;
+import java.util.Enumeration;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Arrays;
 import java.io.File;
@@ -13,7 +16,9 @@ import java.util.Scanner;
 class Project2 {
     //Note that these two values get set only after bruteForceIterative done
     static int maxTrue;
-    static boolean[] boolVals;
+    static int approxTrue;
+    static boolean[] boolValsActual;
+    static boolean[] boolValsApprox;
 
     public static void main (String[] args) throws Exception{
         
@@ -24,7 +29,12 @@ class Project2 {
 
         System.out.println(maxTrue);
 
-        printBoolVals(CL);
+        printboolValsActual(CL, boolValsActual);
+
+        System.out.println("\n\n\n\n");
+
+        approximate(CL);
+
     }
 
     //Driver function for `makeClauseList`
@@ -72,7 +82,38 @@ class Project2 {
         return new Clause(l1, l2);
     }
 
-    //Automatically updates maxTrue and boolVals to their respective values
+    //The approx algorithm used to approximate the max # of true possible clauses
+    //Input: ClauseList CL
+    //Output: An int indicating the max number of possible true clauses
+    public static int approximate (ClauseList CL) {
+
+        Dictionary<String, Integer> literalCounts = new Hashtable<>();
+
+        String[] uniqueLit = CL.getUniqueLiterals();
+
+        // for each unique Literal, add its number of occurrences to the hashtable
+        // also add its number of negated occurrences
+        
+        for (String lit : uniqueLit) {
+            literalCounts.put(lit, CL.getNumberOccurences(lit));
+        }
+
+        Enumeration<String> k = literalCounts.keys();
+        while (k.hasMoreElements()) {
+            String key = k.nextElement();
+            System.out.println("Literal: " + key + ", Occurrences: " + literalCounts.get(key));
+        }
+
+        CL.printClauseList();
+
+        System.out.println(CL.getNumberOccurences("X19"));
+
+        return 0;
+    }
+
+
+
+    //Automatically updates maxTrue and boolValsActual to their respective values
     //Input: ClauseList CL to brute Force Iteratively find the max number of possible true clauses
     //Output: An int indicating the max number of possible true clauses
     public static int bruteForceIterative (ClauseList CL) {
@@ -111,10 +152,10 @@ class Project2 {
                 }
             }
 
-            //update global variable boolVals and update local variable max if calculated max is >= max
+            //update global variable boolValsActual and update local variable max if calculated max is >= max
             if (CL.getNumberTrueClauses(boolArr) >= max) {
                 max = CL.getNumberTrueClauses(boolArr);
-                boolVals = boolArr.clone();
+                boolValsActual = boolArr.clone();
             }
         }
 
@@ -126,22 +167,22 @@ class Project2 {
     //Input: a ClauseList
     //Output: N/A
     //Prints truth assignments output desired for project submission
-    public static void printBoolVals (ClauseList CL) {
+    public static void printboolValsActual (ClauseList CL, boolean[] boolArr) {
 
         String[] uniqueLits = CL.getUniqueLiterals();
 
         //used for searching the list of strings
         List<String> uniqueLiterals = Arrays.asList(uniqueLits);
 
-        if (!(boolVals == null)) {
+        if (!(boolArr == null)) {
             int boolValIndex = 0;
             for (int i = 1; i <= Integer.parseInt(uniqueLits[uniqueLits.length - 1]) ; i++) {
                 //i represents all possible k's from 1 to max Numbered Literal
                 //if uniqueLiterals containes i as a string, then we print the associated
-                //  boolean value from boolVals
+                //  boolean value from boolArr
                 if (uniqueLiterals.contains(Integer.toString(i))) {
                     //Convert True/False to T/F for printing purposes
-                    if (boolVals[boolValIndex]) {
+                    if (boolArr[boolValIndex]) {
                         System.out.print("T");
                     } else {
                         System.out.print("F");
