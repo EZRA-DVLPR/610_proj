@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 class Project2 {
     //Note that these two values get set only after bruteForceIterative done
@@ -25,6 +26,7 @@ class Project2 {
         //make the clause list
         ClauseList CL = makeClauseList("input.txt");
 
+        /* 
         bruteForceIterative(CL);
 
         System.out.println(maxTrue);
@@ -32,7 +34,7 @@ class Project2 {
         printboolValsActual(CL, boolValsActual);
 
         System.out.println("\n\n\n\n");
-
+        */
         approximate(CL);
 
     }
@@ -88,7 +90,7 @@ class Project2 {
     public static int approximate (ClauseList CL) {
 
         Dictionary<String, Integer> literalCounts = new Hashtable<>();
-
+        ArrayList<String> lits = new ArrayList<>();
         String[] uniqueLit = CL.getUniqueLiterals();
 
         // for each unique Literal, add its number of occurrences to the hashtable
@@ -107,7 +109,17 @@ class Project2 {
         System.out.println(literalCounts.get("!X3"));
         System.out.println((literalCounts.get("!X3")) == (null));
 
-        CL.printClauseList();
+        for (String lit : uniqueLit) {
+            if ((lit.contains("!")) && (!(lits.contains(lit.substring(1, lit.length()))))) {
+                lits.add(lit.substring(1, lit.length()));
+            } else if (!(lits.contains(lit))) {
+                lits.add(lit);
+            }
+        }
+
+        for (int i = 0; i < lits.size(); i++) {
+            System.out.println(lits.get(i));
+        }
 
         return 0;
     }

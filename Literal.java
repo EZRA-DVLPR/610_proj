@@ -31,7 +31,11 @@ public class Literal {
     }
 
     public int getNameAsInt () {
-        return this.name;
+        if (this.isNotNegated) {
+            return this.name;
+        } else {
+            return -1 * this.name;
+        }
     }
 
     //Input: Literals L1, L2
