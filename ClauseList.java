@@ -8,34 +8,53 @@ import java.util.Comparator;
 
 public class ClauseList {
     private ArrayList<Clause> CL;
-    private ArrayList<String> uniqueLit;
+    private ArrayList<String> uniqueLiterals;    // all unique literals (X2 == !X2 => X2)
+    private ArrayList<String> allLiterals;  // all literals (X2 != !X2 => X2, !X2)
 
     public ClauseList () {
         this.CL = new ArrayList<Clause>();
-        this.uniqueLit = new ArrayList<String>();
+        this.uniqueLiterals = new ArrayList<String>();
+        this.allLiterals = new ArrayList<String>();
     }
 
     public Clause addClause (Clause C) {
         this.CL.add(C);
         
-        if (!(this.uniqueLit.contains(C.getLHS().getNameAsString()))) {
-            this.uniqueLit.add(C.getLHS().getNameAsString());
+        //add literals if not encountered before into allLiterals
+        if (!(this.allLiterals.contains(C.getLHS().getLitAsString()))) {
+            this.allLiterals.add(C.getLHS().getLitAsString());
         }
 
-        if (!(this.uniqueLit.contains(C.getRHS().getNameAsString()))) {
-            this.uniqueLit.add(C.getRHS().getNameAsString());
+        if (!(this.allLiterals.contains(C.getRHS().getLitAsString()))) {
+            this.allLiterals.add(C.getRHS().getLitAsString());
+        }
+
+        //add literals only if the non-negated form is in uniqueLiterals
+        if (!(this.uniqueLiterals.contains(C.getLHS().getNameAsString()))) {
+            this.uniqueLiterals.add(C.getLHS().getNameAsString());
+        }
+
+        if (!(this.uniqueLiterals.contains(C.getRHS().getNameAsString()))) {
+            this.uniqueLiterals.add(C.getRHS().getNameAsString());
         }
 
         //sort them in natural order ("X2" < "X3", etc.)
-        this.uniqueLit.sort(Comparator.naturalOrder());
+        this.uniqueLiterals.sort(Comparator.naturalOrder());
+        this.allLiterals.sort(Comparator.naturalOrder());
 
         return C;
     }
 
-    public String[] getUniqueLiterals () {
-        String[] uniqueLitAsStringArr = new String[this.uniqueLit.size()];
-        uniqueLitAsStringArr = this.uniqueLit.toArray(uniqueLitAsStringArr);
-        return uniqueLitAsStringArr;
+    public String[] getuniqueLiterals () {
+        String[] uniqueLiteralsAsStringArr = new String[this.uniqueLiterals.size()];
+        uniqueLiteralsAsStringArr = this.uniqueLiterals.toArray(uniqueLiteralsAsStringArr);
+        return uniqueLiteralsAsStringArr;
+    }
+
+    public String[] getAllLiterals () {
+        String[] allLiteralsAsStringArr = new String[this.allLiterals.size()];
+        allLiteralsAsStringArr = this.uniqueLiterals.toArray(allLiteralsAsStringArr);
+        return allLiteralsAsStringArr;
     }
 
     public Clause getClause (int index) {
@@ -51,7 +70,7 @@ public class ClauseList {
     }
 
     //Input: a boolean[] Vals
-    //      Note: Vals is in the same order given when calling getUniqueLiterals or getClauseList
+    //      Note: Vals is in the same order given when calling getuniqueLiteralserals or getClauseList
     //Output: an int representing the Number of True Clauses for this CL given Vals
     public int getNumberTrueClauses (boolean[] Vals) {
         int numTrue = 0;
@@ -64,9 +83,12 @@ public class ClauseList {
             //prints the LHS of the current Clause as string
 
             //find the index of the above string within the list of unique Literals for the LHS and RHS
+
+            System.out.println(this.uniqueLiterals.indexOf(this.CL.get(i).getLHS().getNameAsString()));
+            System.out.println(this.uniqueLiterals.indexOf(this.CL.get(i).getRHS().getNameAsString()));
             
-            boolean LHSBool = Vals[this.uniqueLit.indexOf(Integer.toString(this.CL.get(i).getLHS().getNameAsInt()))];
-            boolean RHSBool = Vals[this.uniqueLit.indexOf(Integer.toString(this.CL.get(i).getRHS().getNameAsInt()))];
+            boolean LHSBool = Vals[this.uniqueLiterals.indexOf(this.CL.get(i).getLHS().getNameAsString())];
+            boolean RHSBool = Vals[this.uniqueLiterals.indexOf(this.CL.get(i).getRHS().getNameAsString())];
 
             if (this.CL.get(i).evaluates(LHSBool, RHSBool)) {
                 numTrue++;
@@ -102,9 +124,9 @@ public class ClauseList {
         return count;
     }
 
-    public void printUniqueLiterals () {
-        for (int i = 0; i < this.uniqueLit.size(); i++) {
-            System.out.println("X" + this.uniqueLit.get(i));
+    public void printuniqueLiteralserals () {
+        for (int i = 0; i < this.uniqueLiterals.size(); i++) {
+            System.out.println("X" + this.uniqueLiterals.get(i));
         }
     }
     

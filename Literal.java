@@ -23,6 +23,14 @@ public class Literal {
     }
 
     public String getNameAsString () {
+        return Integer.toString(this.name);
+    }
+
+    public int getNameAsInt () {
+        return this.name;
+    }
+
+    public String getLitAsString() {
         if (this.isNotNegated) {
             return Integer.toString(this.name);
         } else {
@@ -30,7 +38,7 @@ public class Literal {
         }
     }
 
-    public int getNameAsInt () {
+    public int getLitAsInt() {
         if (this.isNotNegated) {
             return this.name;
         } else {

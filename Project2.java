@@ -37,6 +37,20 @@ class Project2 {
         */
         approximate(CL);
 
+        System.out.println("\n\n");
+
+        System.out.println(approxTrue);
+
+        System.out.println();
+
+        for (int i = 0; i < boolValsApprox.length; i++) {
+            System.out.print(boolValsApprox[i]);
+        }
+        System.out.println("\n");
+
+        
+        
+
     }
 
     //Driver function for `makeClauseList`
@@ -96,19 +110,12 @@ class Project2 {
         // for each unique Literal, add its number of occurrences to the hashtable
         // also add its number of negated occurrences
         
+        //populate literalCounts
         for (String lit : uniqueLit) {
             literalCounts.put(lit, CL.getNumberOccurences(lit));
         }
 
-        Enumeration<String> k = literalCounts.keys();
-        while (k.hasMoreElements()) {
-            String key = k.nextElement();
-            System.out.println("Literal: " + key + ", Occurrences: " + literalCounts.get(key));
-        }
-
-        System.out.println(literalCounts.get("!X3"));
-        System.out.println((literalCounts.get("!X3")) == (null));
-
+        //populate lits
         for (String lit : uniqueLit) {
             if ((lit.contains("!")) && (!(lits.contains(lit.substring(1, lit.length()))))) {
                 lits.add(lit.substring(1, lit.length()));
@@ -117,11 +124,49 @@ class Project2 {
             }
         }
 
-        for (int i = 0; i < lits.size(); i++) {
-            System.out.println(lits.get(i));
+        // compare the count for it being negated and not negated
+        for (String lit : lits) {
+            if ((null == literalCounts.get(lit)) || (null == literalCounts.get("!" + lit))) {
+                //we don't adjust the dictionary
+            } else {
+                //compare if lit > !lit
+                boolean compare = literalCounts.get(lit) >= literalCounts.get("!" + lit);
+                
+                //delete the smaller of the two
+                if (compare) {
+                    //Count of lit > !lit
+                    literalCounts.remove("!" + lit);
+                } else {
+                    //Count of !lit > lit
+                    literalCounts.remove(lit);
+                }
+            }
         }
 
-        return 0;
+        boolean[] boolArr = new boolean[literalCounts.size()];
+
+        int count = 0;
+        Enumeration<String> k = literalCounts.keys();
+        while (k.hasMoreElements()) {
+            String key = k.nextElement();
+            System.out.println("Literal: " + key + ", Occurrences: " + literalCounts.get(key));
+            if (key.contains("!")) {
+                boolArr[count] = false;
+            } else {
+                boolArr[count] = true;
+            }
+            count++;
+        }
+
+        boolValsApprox = boolArr.clone();
+
+        for (boolean b : boolValsApprox) {
+            System.out.println(b);
+        }
+
+        approxTrue = CL.getNumberTrueClauses(boolValsApprox);
+
+        return approxTrue;
     }
 
 
