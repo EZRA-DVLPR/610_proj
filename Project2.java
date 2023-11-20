@@ -136,8 +136,6 @@ class Project2 {
         return approxTrue;
     }
 
-
-
     //Automatically updates maxTrue and boolValsActual to their respective values
     //Input: ClauseList CL to brute Force Iteratively find the max number of possible true clauses
     //Output: An int indicating the max number of possible true clauses
