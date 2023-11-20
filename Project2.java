@@ -5,14 +5,12 @@
 /**************************************************************************************************************/
 
 import java.util.Dictionary;
-import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Arrays;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.util.ArrayList;
 
 class Project2 {
     //Note that these two values get set only after bruteForceIterative done
