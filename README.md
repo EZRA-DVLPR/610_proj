@@ -118,6 +118,11 @@ Additionally, we expect to see the truth value assignments to variables x1, x2, 
 
 Max 2-SAT Approximation of $`\geq`$ 75% optimal
 
+### Additional Notes
+
+See: 
+* [Local Search](https://en.wikipedia.org/wiki/Approximation_algorithm)
+
 # COMP 610 Project 3 Description
 
 Max 2-SAT Local Search
