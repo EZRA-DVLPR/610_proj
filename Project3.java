@@ -32,12 +32,41 @@ class Project3 {
     //      also updates boolVals with the corresponding truth assignments
     public static int localSearch (ClauseList CL) {
 
-        //initial config
+        //initial config => all variables are true
+        String[] uniqueLits = CL.getUniqueLiterals();
+        boolVals = new boolean[uniqueLits.length];
+        for (int i = 0; i < boolVals.length; i++) {
+            boolVals[i] = true;
+        }
 
-        //search for next config that produces higher number of truthful clauses
-        //while (there exists a new clause that improves maxTruth)
+        //initiliaze variables for while loop
+        int currMax = CL.getNumberTrueClauses(boolVals);
+        int index = 0;
 
-        return 0;
+        //look for next config that produces higher number of truthful clauses (currMax)
+        while (index < boolVals.length) {
+
+            //tempVals is the same as boolVals except the current index is flipped
+            boolean[] tempVals = boolVals.clone();
+            tempVals[index] = !tempVals[index];
+
+            //compare possMax (based on tempVals) and currMax
+            int possMax = CL.getNumberTrueClauses(tempVals);
+            if (possMax > currMax) {
+                //update currMax and boolVals
+                currMax = possMax;
+                boolVals = tempVals.clone();
+
+                //reset index to start from first variable
+                index = 0;
+            } else {
+                //increment index
+                index++;
+            }
+        } //no further increases to currMax
+        
+        numTrue = currMax;
+        return numTrue;
     }
 
     //Driver function for `makeClauseList`
